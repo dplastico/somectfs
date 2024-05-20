@@ -1,0 +1,2 @@
+Debugging the source code you can see the attack, changing the size to oxa0 and the allocating the same size (with 0x98) will print the fata 0x20 after the chunk where the flag should be
+tjctf{bby-eap-lol171296386}
