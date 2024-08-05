@@ -62,8 +62,3 @@ r.sendline(hex(libc.sym.system))
 #========= interactive ====================
 r.interactive()
 
-
-
-#postular
-#hypervisores
-#buda
